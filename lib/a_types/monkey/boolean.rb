@@ -23,6 +23,53 @@ class Numeric
 end
 
 
+# Adds #to_bool and #to_bool!
+class String
+  # Converts this String to a boolean value.
+  # - Single characters are converted to _true_ if they are part of the set
+  #     ['y', 'Y', '1']
+  #
+  # - Multiple characters are converted to _true_ if they are part of the set
+  #     ['yes', 'Yes', 'YES', 'true', 'True', 'TRUE']
+  #
+  # - In any other case, the result will be false.
+  #
+  # @return [true, false] depending on the content.
+  def to_bool
+    %w(y Y 1 yes Yes YES true True TRUE).include?(self)
+  end
+  alias_method :to_b, :to_bool
+
+
+  # Converts this String to a boolean value.
+  # - Single characters are converted to true if they are part of the set
+  #     ['y', 'Y', '1']
+  #
+  # - Single characters are converted to _false_ if they are part of the set
+  #     ['n', 'N', '0', '']
+  #
+  # - Multiple characters are converted to _true_ if they are part of the set
+  #     ['yes', 'Yes', 'YES', 'true', 'True', 'TRUE']
+  #
+  # - Multiple characters are converted to _false_ if they are part of the set
+  #     ['no', 'No', 'NO', 'false', 'False', 'FALSE']
+  #
+  # - In any other case, an ArgumentError will be raised.
+  #
+  # @return [true, false] depending on the content.
+  # @raise [ArgumentError] if this String is no real boolean value.
+  def to_bool!
+    return true if  %w(y Y 1 yes Yes YES true True TRUE).include?(self)
+
+    negative = ['n', 'N', '0', 'no', 'No', 'NO', 'false', 'False', 'FALSE', '']
+    return false if negative.include?(self)
+
+    fail ArgumentError, "#{self} can't be interpreted as boolean!"
+  end
+  alias_method :to_b!, :to_bool!
+end
+
+
 # Adds the possibility to type cast any object to either TrueClass or
 # FalseClass. It will look for special strings and values. If none of them are
 # found, it will fall back to Ruby's default boolean behavior.
