@@ -85,6 +85,8 @@ end
 
 # Adds #to_bool and #to_bool!
 class NilClass
+  include Boolean
+
   # @return [false] respecting the Ruby way.
   def to_bool
     false
@@ -98,6 +100,8 @@ end
 
 # Adds #to_bool and #to_bool!
 class TrueClass
+  include Boolean
+
   # @return [true] respecting the Ruby way.
   def to_bool
     self
@@ -110,6 +114,8 @@ end
 
 # Adds #to_bool and #to_bool!
 class FalseClass
+  include Boolean
+
   # @return [false] respecting the Ruby way.
   def to_bool
     self
@@ -119,19 +125,4 @@ class FalseClass
   alias_method :to_bool!, :to_bool
   alias_method :to_b!, :to_bool
 end
-
-
-# Adds the possibility to type cast any object to either TrueClass or
-# FalseClass. It will look for special strings and values. If none of them are
-# found, it will fall back to Ruby's default boolean behavior.
-#
-# - for Numeric:
-#     - values > 0  are cast to true
-#     - values < 1  are cast to false
-# module Kernel
-#   def Boolean(object)
-#     object.to_bool
-#   end
-# end
-
 

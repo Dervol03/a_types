@@ -2,33 +2,8 @@ require 'spec_helper'
 
 require 'a_types/monkey/boolean'
 
-describe 'Kernel' do
-  # it 'has new type cast Boolean' do
-  #   expect(Kernel).to respond_to(:Boolean)
-  # end
-  #
-  # it 'casts Numeric 0 to false' do
-  #   expect(Boolean(0)).to be false
-  # end
-  #
-  # it 'casts Numerics smaller than 0 to false' do
-  #   expect(Boolean(-1)).to be false
-  #   expect(Boolean(-100)).to be false
-  # end
-  #
-  # it 'casts Numerics greater than 0 to true' do
-  #   expect(Boolean(1)).to be true
-  #   expect(Boolean(100)).to be true
-  # end
-
-end
-
-
 describe Numeric do
-  it{ is_expected.to respond_to(:to_bool)   }
-  it{ is_expected.to respond_to(:to_b)      }
-  it{ is_expected.to respond_to(:to_bool!)  }
-  it{ is_expected.to respond_to(:to_b!)     }
+  it_behaves_like 'a Boolean', 1
 
   describe '#to_bool' do
     context 'is 0' do
@@ -77,12 +52,7 @@ end# Numeric
 
 
 describe String do
-  it{ is_expected.to respond_to(:to_bool)   }
-  it{ is_expected.to respond_to(:to_b)      }
-
-  it{ is_expected.to respond_to(:to_bool!)  }
-  it{ is_expected.to respond_to(:to_b!)     }
-
+  it_behaves_like 'a Boolean', String.new
 
   describe '#to_bool' do
     context 'consists of a single character' do
@@ -189,10 +159,7 @@ end# String
 
 
 describe Object do
-  it{ is_expected.to respond_to(:to_bool)   }
-  it{ is_expected.to respond_to(:to_b)      }
-  it{ is_expected.to respond_to(:to_bool!)  }
-  it{ is_expected.to respond_to(:to_b!)     }
+  it_behaves_like 'a Boolean', Object.new
 
   describe '#to_bool' do
     it 'returns true' do
@@ -209,20 +176,10 @@ end # Object
 
 
 describe NilClass do
-  it 'should respond to #to_bool' do
-    expect(nil).to respond_to(:to_bool)
-  end
+  it_behaves_like 'a Boolean', nil
 
-  it 'should respond to #to_b' do
-    expect(nil).to respond_to(:to_b!)
-  end
-
-  it 'should respond to #to_bool!' do
-    expect(nil).to respond_to(:to_bool!)
-  end
-
-  it 'should respond to #to_b!' do
-    expect(nil).to respond_to(:to_b!)
+  it 'acts as a Boolean' do
+    expect(nil).to be_a(Boolean)
   end
 
   describe '#to_bool' do
@@ -240,20 +197,10 @@ end # NilClass
 
 
 describe TrueClass do
-  it 'should respond to #to_bool' do
-    expect(true).to respond_to(:to_bool)
-  end
+  it_behaves_like 'a Boolean', true
 
-  it 'should respond to #to_b' do
-    expect(true).to respond_to(:to_b!)
-  end
-
-  it 'should respond to #to_bool!' do
-    expect(true).to respond_to(:to_bool!)
-  end
-
-  it 'should respond to #to_b!' do
-    expect(true).to respond_to(:to_b!)
+  it 'acts as a Boolean' do
+    expect(true).to be_a(Boolean)
   end
 
   describe '#to_bool' do
@@ -271,20 +218,10 @@ end # TrueClass
 
 
 describe FalseClass do
-  it 'should respond to #to_bool' do
-    expect(false).to respond_to(:to_bool)
-  end
+  it_behaves_like 'a Boolean', false
 
-  it 'should respond to #to_b' do
-    expect(false).to respond_to(:to_b!)
-  end
-
-  it 'should respond to #to_bool!' do
-    expect(false).to respond_to(:to_bool!)
-  end
-
-  it 'should respond to #to_b!' do
-    expect(false).to respond_to(:to_b!)
+  it 'acts as a Boolean' do
+    expect(false).to be_a(Boolean)
   end
 
   describe '#to_bool' do
