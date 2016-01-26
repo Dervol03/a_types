@@ -237,3 +237,65 @@ describe NilClass do
     end
   end # '#to_bool!'
 end # NilClass
+
+
+describe TrueClass do
+  it 'should respond to #to_bool' do
+    expect(true).to respond_to(:to_bool)
+  end
+
+  it 'should respond to #to_b' do
+    expect(true).to respond_to(:to_b!)
+  end
+
+  it 'should respond to #to_bool!' do
+    expect(true).to respond_to(:to_bool!)
+  end
+
+  it 'should respond to #to_b!' do
+    expect(true).to respond_to(:to_b!)
+  end
+
+  describe '#to_bool' do
+    it 'returns false' do
+      expect(true.to_bool).to be true
+    end
+  end # '#to_bool'
+
+  describe '#to_bool!' do
+    it 'returns false' do
+      expect(true.to_bool!).to be true
+    end
+  end # '#to_bool!'
+end # TrueClass
+
+
+describe FalseClass do
+  it 'should respond to #to_bool' do
+    expect(false).to respond_to(:to_bool)
+  end
+
+  it 'should respond to #to_b' do
+    expect(false).to respond_to(:to_b!)
+  end
+
+  it 'should respond to #to_bool!' do
+    expect(false).to respond_to(:to_bool!)
+  end
+
+  it 'should respond to #to_b!' do
+    expect(false).to respond_to(:to_b!)
+  end
+
+  describe '#to_bool' do
+    it 'returns false' do
+      expect(false.to_bool).to be false
+    end
+  end # '#to_bool'
+
+  describe '#to_bool!' do
+    it 'returns false' do
+      expect(false.to_bool!).to be false
+    end
+  end # '#to_bool!'
+end # TrueClass

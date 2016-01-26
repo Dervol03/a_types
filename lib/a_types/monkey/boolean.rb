@@ -96,6 +96,29 @@ class NilClass
 end
 
 
+# Adds #to_bool and #to_bool!
+class TrueClass
+  # @return [true] respecting the Ruby way.
+  def to_bool
+    self
+  end
+  alias_method :to_b, :to_bool
+  alias_method :to_bool!, :to_bool
+  alias_method :to_b!, :to_bool
+end
+
+
+# Adds #to_bool and #to_bool!
+class FalseClass
+  # @return [false] respecting the Ruby way.
+  def to_bool
+    self
+  end
+
+  alias_method :to_b, :to_bool
+  alias_method :to_bool!, :to_bool
+  alias_method :to_b!, :to_bool
+end
 
 
 # Adds the possibility to type cast any object to either TrueClass or
