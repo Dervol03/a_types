@@ -11,7 +11,7 @@ module Boolean
 end
 
 
-# Adds #to_bool
+# Adds #to_bool and #to_bool!
 class Numeric
   # Interprets this Numeric to a boolean value.
   #
@@ -20,6 +20,8 @@ class Numeric
     self > 0 ? true : false
   end
   alias_method :to_b, :to_bool
+  alias_method :to_bool!, :to_bool
+  alias_method :to_b!, :to_bool
 end
 
 
@@ -68,6 +70,32 @@ class String
   end
   alias_method :to_b!, :to_bool!
 end
+
+
+# Adds #to_bool and #to_bool!
+class Object
+  # @return [true] respecting the Ruby way.
+  def to_bool
+    true
+  end
+  alias_method :to_b, :to_bool
+  alias_method :to_bool!, :to_bool
+  alias_method :to_b!, :to_bool
+end
+
+# Adds #to_bool and #to_bool!
+class NilClass
+  # @return [false] respecting the Ruby way.
+  def to_bool
+    false
+  end
+
+  alias_method :to_b, :to_bool
+  alias_method :to_bool!, :to_bool
+  alias_method :to_b!, :to_bool
+end
+
+
 
 
 # Adds the possibility to type cast any object to either TrueClass or

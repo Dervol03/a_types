@@ -25,7 +25,10 @@ end
 
 
 describe Numeric do
-  it {  is_expected.to respond_to(:to_bool) }
+  it{ is_expected.to respond_to(:to_bool)   }
+  it{ is_expected.to respond_to(:to_b)      }
+  it{ is_expected.to respond_to(:to_bool!)  }
+  it{ is_expected.to respond_to(:to_b!)     }
 
   describe '#to_bool' do
     context 'is 0' do
@@ -47,7 +50,29 @@ describe Numeric do
         expect((100).to_bool).to be true
       end
     end# is greater than 0
-  end
+  end# #to_bool
+
+  describe '#to_bool!' do
+    context 'is 0' do
+      it 'returns false' do
+        expect(0.to_bool!).to be false
+      end
+    end# is 0
+
+    context 'is smaller than 0' do
+      it 'returns false' do
+        expect((-1).to_bool!).to be false
+        expect((-100).to_bool!).to be false
+      end
+    end# is greater than 0
+
+    context 'is greater than 0' do
+      it 'returns true' do
+        expect((1).to_bool!).to be true
+        expect((100).to_bool!).to be true
+      end
+    end# is greater than 0
+  end# #to_bool
 end# Numeric
 
 
@@ -160,5 +185,55 @@ describe String do
       end# is any other word
     end # consists of a multiple characters
   end # '#to_bool'
-
 end# String
+
+
+describe Object do
+  it{ is_expected.to respond_to(:to_bool)   }
+  it{ is_expected.to respond_to(:to_b)      }
+  it{ is_expected.to respond_to(:to_bool!)  }
+  it{ is_expected.to respond_to(:to_b!)     }
+
+  describe '#to_bool' do
+    it 'returns true' do
+      expect(Object.new.to_bool).to be true
+    end
+  end # '#to_bool'
+
+  describe '#to_bool!' do
+    it 'returns true' do
+      expect(Object.new.to_bool!).to be true
+    end
+  end # '#to_bool!'
+end # Object
+
+
+describe NilClass do
+  it 'should respond to #to_bool' do
+    expect(nil).to respond_to(:to_bool)
+  end
+
+  it 'should respond to #to_b' do
+    expect(nil).to respond_to(:to_b!)
+  end
+
+  it 'should respond to #to_bool!' do
+    expect(nil).to respond_to(:to_bool!)
+  end
+
+  it 'should respond to #to_b!' do
+    expect(nil).to respond_to(:to_b!)
+  end
+
+  describe '#to_bool' do
+    it 'returns false' do
+      expect(nil.to_bool).to be false
+    end
+  end # '#to_bool'
+
+  describe '#to_bool!' do
+    it 'returns false' do
+      expect(nil.to_bool!).to be false
+    end
+  end # '#to_bool!'
+end # NilClass
