@@ -19,9 +19,9 @@ class Numeric
   def to_bool
     self > 0 ? true : false
   end
-  alias_method :to_b, :to_bool
-  alias_method :to_bool!, :to_bool
-  alias_method :to_b!, :to_bool
+  alias to_b to_bool
+  alias to_bool! to_bool
+  alias to_b! to_bool
 end
 
 
@@ -40,7 +40,7 @@ class String
   def to_bool
     %w(y Y 1 yes Yes YES true True TRUE).include?(self)
   end
-  alias_method :to_b, :to_bool
+  alias to_b to_bool
 
 
   # Converts this String to a boolean value.
@@ -61,14 +61,14 @@ class String
   # @return [true, false] depending on the content.
   # @raise [ArgumentError] if this String is no real boolean value.
   def to_bool!
-    return true if  %w(y Y 1 yes Yes YES true True TRUE).include?(self)
+    return true if %w(y Y 1 yes Yes YES true True TRUE).include?(self)
 
     negative = ['n', 'N', '0', 'no', 'No', 'NO', 'false', 'False', 'FALSE', '']
     return false if negative.include?(self)
 
     fail ArgumentError, "#{self} can't be interpreted as boolean!"
   end
-  alias_method :to_b!, :to_bool!
+  alias to_b! to_bool!
 end
 
 
@@ -78,9 +78,9 @@ class Object
   def to_bool
     true
   end
-  alias_method :to_b, :to_bool
-  alias_method :to_bool!, :to_bool
-  alias_method :to_b!, :to_bool
+  alias to_b to_bool
+  alias to_bool! to_bool
+  alias to_b! to_bool
 end
 
 # Adds #to_bool and #to_bool!
@@ -92,9 +92,9 @@ class NilClass
     false
   end
 
-  alias_method :to_b, :to_bool
-  alias_method :to_bool!, :to_bool
-  alias_method :to_b!, :to_bool
+  alias to_b to_bool
+  alias to_bool! to_bool
+  alias to_b! to_bool
 end
 
 
@@ -106,9 +106,9 @@ class TrueClass
   def to_bool
     self
   end
-  alias_method :to_b, :to_bool
-  alias_method :to_bool!, :to_bool
-  alias_method :to_b!, :to_bool
+  alias to_b to_bool
+  alias to_bool! to_bool
+  alias to_b! to_bool
 end
 
 
@@ -121,9 +121,9 @@ class FalseClass
     self
   end
 
-  alias_method :to_b, :to_bool
-  alias_method :to_bool!, :to_bool
-  alias_method :to_b!, :to_bool
+  alias to_b to_bool
+  alias to_bool! to_bool
+  alias to_b! to_bool
 end
 
 

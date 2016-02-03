@@ -1,1 +1,4 @@
--D
+Style/EmptyLines:
+  Enabled: false
+Style/MethodName:
+  Enabled: false

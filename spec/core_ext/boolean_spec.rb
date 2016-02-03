@@ -8,49 +8,49 @@ describe Numeric do
       it 'returns false' do
         expect(0.to_bool).to be false
       end
-    end# is 0
+    end # is 0
 
     context 'is smaller than 0' do
       it 'returns false' do
-        expect((-1).to_bool).to be false
-        expect((-100).to_bool).to be false
+        expect(-1.to_bool).to be false
+        expect(-100.to_bool).to be false
       end
-    end# is greater than 0
+    end # is greater than 0
 
     context 'is greater than 0' do
       it 'returns true' do
-        expect((1).to_bool).to be true
-        expect((100).to_bool).to be true
+        expect(1.to_bool).to be true
+        expect(100.to_bool).to be true
       end
-    end# is greater than 0
-  end# #to_bool
+    end # is greater than 0
+  end # #to_bool
 
   describe '#to_bool!' do
     context 'is 0' do
       it 'returns false' do
         expect(0.to_bool!).to be false
       end
-    end# is 0
+    end # is 0
 
     context 'is smaller than 0' do
       it 'returns false' do
-        expect((-1).to_bool!).to be false
-        expect((-100).to_bool!).to be false
+        expect(-1.to_bool!).to be false
+        expect(-100.to_bool!).to be false
       end
-    end# is greater than 0
+    end # is greater than 0
 
     context 'is greater than 0' do
       it 'returns true' do
-        expect((1).to_bool!).to be true
-        expect((100).to_bool!).to be true
+        expect(1.to_bool!).to be true
+        expect(100.to_bool!).to be true
       end
-    end# is greater than 0
-  end# #to_bool
-end# Numeric
+    end # is greater than 0
+  end # #to_bool
+end # Numeric
 
 
 describe String do
-  it_behaves_like 'a Boolean', String.new
+  it_behaves_like 'a Boolean', ''
 
   describe '#to_bool' do
     context 'consists of a single character' do
@@ -88,7 +88,7 @@ describe String do
           expect('no'.to_bool).to be false
           expect('totally different'.to_bool).to be false
         end
-      end# is any other word
+      end # is any other word
     end # consists of a multiple characters
   end # '#to_bool'
 
@@ -115,8 +115,8 @@ describe String do
 
       context 'is any other character' do
         it 'raises Argument Error' do
-          expect{ 'a'.to_bool! }.to raise_error(ArgumentError)
-          expect{ '2'.to_bool! }.to raise_error(ArgumentError)
+          expect { 'a'.to_bool! }.to raise_error(ArgumentError)
+          expect { '2'.to_bool! }.to raise_error(ArgumentError)
         end
       end
     end # consists of a single character
@@ -147,13 +147,13 @@ describe String do
 
       context 'is any other word' do
         it 'raises Argument Error' do
-          expect{ 'nope'.to_bool! }.to raise_error(ArgumentError)
-          expect{ 'multi words'.to_bool! }.to raise_error(ArgumentError)
+          expect { 'nope'.to_bool! }.to raise_error(ArgumentError)
+          expect { 'multi words'.to_bool! }.to raise_error(ArgumentError)
         end
-      end# is any other word
+      end # is any other word
     end # consists of a multiple characters
   end # '#to_bool'
-end# String
+end # String
 
 
 describe Object do
