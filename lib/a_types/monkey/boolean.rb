@@ -126,3 +126,14 @@ class FalseClass
   alias_method :to_b!, :to_bool
 end
 
+
+# Adds a Boolean cast method.
+module Kernel
+  # Casts the given object to its boolean representation.
+  #
+  # @param [Object] obj_to_cast to be cast.
+  # @return [true, false] depending on the object.
+  def Boolean(obj_to_cast)
+    obj_to_cast.to_bool
+  end
+end

@@ -236,3 +236,18 @@ describe FalseClass do
     end
   end # '#to_bool!'
 end # TrueClass
+
+
+describe Kernel do
+  describe '.Boolean()' do
+    it 'returns boolean value of argument' do
+      true_conv = double(:true_conv)
+      allow(true_conv).to receive(:to_bool).and_return(true)
+      expect(Boolean(true_conv)).to be true
+
+      true_conv = double(:false_conv)
+      allow(true_conv).to receive(:to_bool).and_return(false)
+      expect(Boolean(true_conv)).to be false
+    end
+  end # '.Boolean()'
+end # Kernel
