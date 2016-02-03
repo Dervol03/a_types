@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-require 'a_types/monkey/boolean'
-
 describe Numeric do
   it_behaves_like 'a Boolean', 1
 
