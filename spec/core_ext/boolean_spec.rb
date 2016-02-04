@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'core_ext_helper'
 
 describe Numeric do
   it_behaves_like 'a Boolean', 1

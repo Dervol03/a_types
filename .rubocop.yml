@@ -2,3 +2,7 @@ Style/EmptyLines:
   Enabled: false
 Style/MethodName:
   Enabled: false
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
