@@ -15,22 +15,32 @@ module ATypes
     def self.new(obj, ruby_like = false)
       strategy = "convert_#{obj.class.name.downcase}"
 
-      if ruby_like
+      if ruby_like || !respond_to?(strategy, true)
         !!obj
       else
-        respond_to?(strategy, true) ? send(strategy, obj) : convert_object(obj)
+        send(strategy, obj)
       end
 
     end
 
-    def self.convert_object(obj)
-      obj && true
-    end
+
 
     def self.convert_string(obj)
       %w(y Y 1 yes Yes YES true True TRUE).include?(obj)
     end
+    private_class_method :convert_string
 
-    private_class_method :convert_object, :convert_string
+    def self.convert_numeric(value)
+      value > 0
+    end
+    private_class_method :convert_numeric
+    singleton_class.send(:alias_method,  :convert_fixnum, :convert_numeric)
+    singleton_class.send(:alias_method,  :convert_integer, :convert_numeric)
+    singleton_class.send(:alias_method,  :convert_bignum, :convert_numeric)
+    singleton_class.send(:alias_method,  :convert_float, :convert_numeric)
+
+
+
+
   end # Boolean
 end # ATypes

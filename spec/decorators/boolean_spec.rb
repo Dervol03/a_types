@@ -59,5 +59,69 @@ module ATypes
         end # consists of a multiple characters
       end # option ruby_like is false
     end # for strings
+
+
+    context 'for Numerics' do
+      context 'ruby_like options is false' do
+        context 'value is less than 1' do
+          it 'returns false' do
+            expect(described_class.new(0)).to be false
+            expect(described_class.new(-1)).to be false
+          end
+        end # value is less than one
+
+        context 'value equals 1 or is bigger' do
+          it 'returns true' do
+            expect(described_class.new(1)).to be true
+            expect(described_class.new(100)).to be true
+          end
+        end # value equals 1 or is bigger
+      end # ruby_like options is false
+
+
+      context 'ruby_like option is true' do
+        context 'value less than 1' do
+          it 'returns true' do
+            expect(described_class.new(0, true)).to be true
+            expect(described_class.new(-1, true)).to be true
+          end
+        end # value is 0
+
+        context 'value equals 1 or is bigger' do
+          it 'returns true' do
+            expect(described_class.new(1, true)).to be true
+            expect(described_class.new(100, true)).to be true
+          end
+        end # value equals 1 or is bigger
+      end # ruby_like option is true
+    end # for Numerics
+
+
+    context 'for NilClass' do
+      it 'returns false' do
+        expect(described_class.new(nil)).to be false
+      end
+    end # for NilClass
+
+
+    context 'for TruesClass' do
+      it 'returns true' do
+        expect(described_class.new(true)).to be true
+      end
+    end # for TruesClass
+
+
+    context 'for FalseClass' do
+      it 'returns false' do
+        expect(described_class.new(false)).to be false
+      end
+    end # for FalseClass
+
+
+    context 'for other objects' do
+      it 'is true' do
+        expect(described_class.new(Object.new)).to be true
+      end
+    end # for other objects
   end # Boolean
 end # ATypes
