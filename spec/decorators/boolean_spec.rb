@@ -15,6 +15,7 @@ module ATypes
     context 'for strings' do
       context 'option ruby_like is true' do
         it 'is truthy' do
+          expect(described_class.new('', true)).not_to be false
           expect(described_class.new('', true)).to be_truthy
         end
       end # option ruby_like is true
@@ -81,16 +82,18 @@ module ATypes
 
       context 'ruby_like option is true' do
         context 'value less than 1' do
-          it 'returns true' do
-            expect(described_class.new(0, true)).to be true
-            expect(described_class.new(-1, true)).to be true
+          it 'is truthy' do
+            expect(described_class.new(0, true)).not_to be true
+            expect(described_class.new(0, true)).to be_truthy
+            expect(described_class.new(-1, true)).to be_truthy
           end
         end # value is 0
 
         context 'value equals 1 or is bigger' do
-          it 'returns true' do
-            expect(described_class.new(1, true)).to be true
-            expect(described_class.new(100, true)).to be true
+          it 'is truthy' do
+            expect(described_class.new(1, true)).not_to be true
+            expect(described_class.new(1, true)).to be_truthy
+            expect(described_class.new(100, true)).to be_truthy
           end
         end # value equals 1 or is bigger
       end # ruby_like option is true
@@ -98,30 +101,65 @@ module ATypes
 
 
     context 'for NilClass' do
-      it 'returns false' do
-        expect(described_class.new(nil)).to be false
-      end
+      context 'ruby_like options is false' do
+        it 'is false' do
+          expect(described_class.new(nil)).to be false
+        end
+      end # ruby_like options is false
+
+      context 'ruby_like options is true' do
+        it 'is falsey' do
+          expect(described_class.new(nil, true)).not_to be false
+          expect(described_class.new(nil, true)).to be_falsey
+        end
+      end # ruby_like options is true
     end # for NilClass
 
 
     context 'for TruesClass' do
-      it 'returns true' do
-        expect(described_class.new(true)).to be true
-      end
+      context 'ruby_like options is false' do
+        it 'is true' do
+          expect(described_class.new(true)).to be true
+        end
+      end # ruby_like options is false
+
+      context 'ruby_like options is true' do
+        it 'is true' do
+          expect(described_class.new(true, true)).to be true
+        end
+      end # ruby_like options is true
+
     end # for TruesClass
 
 
     context 'for FalseClass' do
-      it 'returns false' do
-        expect(described_class.new(false)).to be false
-      end
+      context 'ruby_like options is false' do
+        it 'is false' do
+          expect(described_class.new(false)).to be false
+        end
+      end # ruby_like options is false
+
+      context 'ruby_like options is true' do
+        it 'is false' do
+          expect(described_class.new(false, true)).to be false
+        end
+      end # ruby_like options is true
     end # for FalseClass
 
 
     context 'for other objects' do
-      it 'is true' do
-        expect(described_class.new(Object.new)).to be true
-      end
+      context 'ruby_like options is false' do
+        it 'is true' do
+          expect(described_class.new(Object.new)).to be true
+        end
+      end # ruby_like options is true
+
+      context 'ruby_like options is true' do
+        it 'is falsey' do
+          expect(described_class.new(Object.new, true)).not_to be true
+          expect(described_class.new(Object.new, true)).to be_truthy
+        end
+      end # ruby_like options is true
     end # for other objects
   end # Boolean
 end # ATypes

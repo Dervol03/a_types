@@ -7,6 +7,27 @@ module ATypes
   # TrueClass. This behavior may be turned off, though, in which case the
   # standard Ruby evaluation of truthy and falsey will be respected.
   class Boolean
+
+    # Boolean class methods (all private).
+    module ClassMethods
+      private
+
+      def convert_string(obj)
+        %w(y Y 1 yes Yes YES true True TRUE).include?(obj)
+      end
+
+      def convert_numeric(value)
+        value > 0
+      end
+
+      alias convert_fixnum convert_numeric
+      alias convert_integer convert_numeric
+      alias convert_bignum convert_numeric
+      alias convert_float convert_numeric
+    end
+
+    extend ClassMethods
+
     # @param [Object] obj to be decorated as Boolean
     # @param [Boolean] ruby_like whether the value shall be converted according
     #                  to Ruby's truthy definition.
@@ -15,29 +36,17 @@ module ATypes
     def self.new(obj, ruby_like = false)
       strategy = "convert_#{obj.class.name.downcase}"
 
-      if ruby_like || !respond_to?(strategy, true)
-        !!obj
+      if ruby_like
+        obj
       else
-        send(strategy, obj)
+        respond_to?(strategy, true) ? send(strategy, obj) : !!obj
       end
 
     end
 
 
 
-    def self.convert_string(obj)
-      %w(y Y 1 yes Yes YES true True TRUE).include?(obj)
-    end
-    private_class_method :convert_string
 
-    def self.convert_numeric(value)
-      value > 0
-    end
-    private_class_method :convert_numeric
-    singleton_class.send(:alias_method,  :convert_fixnum, :convert_numeric)
-    singleton_class.send(:alias_method,  :convert_integer, :convert_numeric)
-    singleton_class.send(:alias_method,  :convert_bignum, :convert_numeric)
-    singleton_class.send(:alias_method,  :convert_float, :convert_numeric)
 
 
 
