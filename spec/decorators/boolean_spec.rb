@@ -2,164 +2,166 @@ require 'decorators_helper'
 
 module ATypes
   describe Boolean do
-    subject { described_class.new('') }
+    subject { described_class.new('y') }
 
-    # it { is_expected.to respond_to(:true?)    }
-    # it { is_expected.to respond_to(:false?)   }
-    it { is_expected.to respond_to(:&)        }
-    it { is_expected.to respond_to(:^)        }
-    it { is_expected.to respond_to(:|)        }
-    it { is_expected.to respond_to(:inspect)  }
-    it { is_expected.to respond_to(:to_s)     }
+    it { is_expected.to respond_to(:true?)    }
+    it { is_expected.to respond_to(:false?)   }
+    it { is_expected.to respond_to(:truthy?)    }
+    it { is_expected.to respond_to(:falsey?)   }
+    # it { is_expected.to respond_to(:&)        }
+    # it { is_expected.to respond_to(:^)        }
+    # it { is_expected.to respond_to(:|)        }
+    # it { is_expected.to respond_to(:inspect)  }
+    # it { is_expected.to respond_to(:to_s)     }
 
-    context 'for strings' do
-      context 'option ruby_like is true' do
-        it 'is truthy' do
-          expect(described_class.new('', true)).not_to be false
-          expect(described_class.new('', true)).to be_truthy
+    describe '#true?' do
+      context 'content is true' do
+        it 'returns true' do
+          instance = described_class.new(true)
+          expect(instance.true?).to be true
         end
-      end # option ruby_like is true
+      end # content is true
 
-      context 'option ruby_like is false' do
-        context 'consists of a single character' do
-          context 'character is one of: "y" "Y" "1"' do
-            it 'is true' do
-              expect(described_class.new('y')).to be true
-              expect(described_class.new('Y')).to be true
-              expect(described_class.new('1')).to be true
-            end
-          end # character is one of: "y" "Y" "1"
+      context 'content is false' do
+        it 'returns false' do
+          instance = described_class.new(false)
+          expect(instance.true?).to be false
+        end
+      end # content is false
+    end # #true?
 
-          context 'is any other character' do
-            it 'is false' do
-              expect(described_class.new('a')).to be false
-              expect(described_class.new('2')).to be false
-            end
-          end # is any other character
-        end # consists of a single character
+    describe '#false?' do
+      context 'content is false' do
+        it 'returns true' do
+          instance = described_class.new(false)
+          expect(instance.false?).to be true
+        end
+      end # content is true
 
-
-        context 'consists of a multiple characters' do
-          context 'word is one of: "yes" "Yes" "YES" "true" "True" "TRUE"' do
-            it 'is true' do
-              expect(described_class.new('yes')).to be true
-              expect(described_class.new('Yes')).to be true
-              expect(described_class.new('YES')).to be true
-              expect(described_class.new('true')).to be true
-              expect(described_class.new('True')).to be true
-              expect(described_class.new('TRUE')).to be true
-            end
-          end # word is one of: "yes" "Yes" "YES" "true" "True" "TRUE"
-
-          context 'is any other word' do
-            it 'is false' do
-              expect(described_class.new('no')).to be false
-              expect(described_class.new('totally different')).to be false
-            end
-          end # if any other word
-        end # consists of a multiple characters
-      end # option ruby_like is false
-    end # for strings
+      context 'content is true' do
+        it 'returns false' do
+          instance = described_class.new(true)
+          expect(instance.false?).to be false
+        end
+      end # content is false
+    end # #false?
 
 
-    context 'for Numerics' do
-      context 'ruby_like options is false' do
-        context 'value is less than 1' do
-          it 'returns false' do
-            expect(described_class.new(0)).to be false
-            expect(described_class.new(-1)).to be false
+    describe '#truthy?' do
+      context 'value attribute is on of: nil, false' do
+        it 'returns false' do
+          [nil, false].each do |neg|
+            expect(described_class.new(neg).truthy?).to be false
           end
-        end # value is less than one
+        end
+      end # value attribute is on of: nil, false
 
-        context 'value equals 1 or is bigger' do
+      context 'value attribute is truthy object' do
+        it 'returns true' do
+          [Object.new, 0, 'false'].each do |pos|
+            expect(described_class.new(pos).truthy?).to be true
+          end
+        end
+      end # value attribute is truthy object
+    end # #truthy?
+
+
+    describe '#falsey?' do
+      context 'value attribute is on of: nil, false' do
+        it 'returns true' do
+          [nil, false].each do |neg|
+            expect(described_class.new(neg).falsey?).to be true
+          end
+        end
+      end # value attribute is on of: nil, false
+
+      context 'value attribute is truthy object' do
+        it 'returns false' do
+          [Object.new, 0, 'false'].each do |pos|
+            expect(described_class.new(pos).falsey?).to be false
+          end
+        end
+      end # value attribute is truthy object
+    end # #falsey?
+
+
+    describe '#truth' do
+      context 'string is given' do
+        context 'string consists of a singly character' do
+          context 'string is one of: "y" "Y" "1" ' do
+            it 'returns true' do
+              %w(y Y 1).each do |char|
+                expect(described_class.new(char).truth).to be true
+              end
+            end
+          end # string is one of: "y" "Y" "1"
+
+          context 'string is any other character' do
+            it 'returns false' do
+              expect(described_class.new('n').truth).to be false
+            end
+          end # string is any other character
+        end # string consists of a singly character
+
+
+        context 'string has multiple characters' do
+          context 'string is on of: "yes" "Yes" "YES" "true" "True" "TRUE"' do
+            it 'returns true' do
+              %w(yes Yes YES true True TRUE).each do |word|
+                expect(described_class.new(word).truth).to be true
+              end
+            end
+          end # string is on of: "yes" "Yes" "YES" "true" "True" "TRUE"
+
+          context 'string is any other word' do
+            it 'returns false' do
+              expect(described_class.new('false').truth).to be false
+            end
+          end # string is any other word
+        end # string has multiple characters
+      end # string is given
+
+
+      context 'numeric is given' do
+        context 'numeric is greather than 0' do
           it 'returns true' do
-            expect(described_class.new(1)).to be true
-            expect(described_class.new(100)).to be true
+            [2, 100].each do |value|
+              expect(described_class.new(value).truth).to be true
+            end
           end
-        end # value equals 1 or is bigger
-      end # ruby_like options is false
+        end # numeric is greather than 0
 
-
-      context 'ruby_like option is true' do
-        context 'value less than 1' do
-          it 'is truthy' do
-            expect(described_class.new(0, true)).not_to be true
-            expect(described_class.new(0, true)).to be_truthy
-            expect(described_class.new(-1, true)).to be_truthy
+        context 'numeric is smaller or equal to 0' do
+          it 'returns false' do
+            [0, -1, -10].each do |value|
+              expect(described_class.new(value).truth).to be false
+            end
           end
-        end # value is 0
+        end # numeric is smaller or equal to 0
+      end # numeric is given
 
-        context 'value equals 1 or is bigger' do
-          it 'is truthy' do
-            expect(described_class.new(1, true)).not_to be true
-            expect(described_class.new(1, true)).to be_truthy
-            expect(described_class.new(100, true)).to be_truthy
+
+      context 'other object is given' do
+        context 'object is nil' do
+          it 'returns false' do
+            expect(described_class.new(nil).truth).to be false
           end
-        end # value equals 1 or is bigger
-      end # ruby_like option is true
-    end # for Numerics
+        end # object is nil
+
+        context 'object is false' do
+          it 'returns false' do
+            expect(described_class.new(false).truth).to be false
+          end
+        end # object is false
 
 
-    context 'for NilClass' do
-      context 'ruby_like options is false' do
-        it 'is false' do
-          expect(described_class.new(nil)).to be false
-        end
-      end # ruby_like options is false
-
-      context 'ruby_like options is true' do
-        it 'is falsey' do
-          expect(described_class.new(nil, true)).not_to be false
-          expect(described_class.new(nil, true)).to be_falsey
-        end
-      end # ruby_like options is true
-    end # for NilClass
-
-
-    context 'for TruesClass' do
-      context 'ruby_like options is false' do
-        it 'is true' do
-          expect(described_class.new(true)).to be true
-        end
-      end # ruby_like options is false
-
-      context 'ruby_like options is true' do
-        it 'is true' do
-          expect(described_class.new(true, true)).to be true
-        end
-      end # ruby_like options is true
-
-    end # for TruesClass
-
-
-    context 'for FalseClass' do
-      context 'ruby_like options is false' do
-        it 'is false' do
-          expect(described_class.new(false)).to be false
-        end
-      end # ruby_like options is false
-
-      context 'ruby_like options is true' do
-        it 'is false' do
-          expect(described_class.new(false, true)).to be false
-        end
-      end # ruby_like options is true
-    end # for FalseClass
-
-
-    context 'for other objects' do
-      context 'ruby_like options is false' do
-        it 'is true' do
-          expect(described_class.new(Object.new)).to be true
-        end
-      end # ruby_like options is true
-
-      context 'ruby_like options is true' do
-        it 'is falsey' do
-          expect(described_class.new(Object.new, true)).not_to be true
-          expect(described_class.new(Object.new, true)).to be_truthy
-        end
-      end # ruby_like options is true
-    end # for other objects
+        context 'other object' do
+          it 'returns true' do
+            obj = Object.new
+            expect(described_class.new(obj).truth).to be true
+          end
+        end # other object
+      end # other object is given
+    end # #truth
   end # Boolean
 end # ATypes
