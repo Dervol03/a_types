@@ -70,6 +70,13 @@ You are more the decorator kind? This gem has exactly what you want:
   require 'a_types/decorators/array'      # => loads ATypes::Array decorator
   require 'a_types/decorators/all'        # => loads all available decorators
 ```
+
+You may also simply load everything in the gem, getting the core extension 
+AND the decorators:
+
+```ruby
+  require 'a_types/all'
+```  
     
     
 Feel free to browse the list of files which you may require on the [project's 
@@ -105,19 +112,19 @@ changing it.
    
   require 'a_types/decorators/boolean'
   
-  b = Boolean.new('yes')
+  b = ATypes::Boolean.new('yes')
   b.value         # => 'yes'
   b.to_bool       # => true
   b.true?         # => true
   b.truthy?       # => true
   
-  b2 = Boolean.new('false')
+  b2 = ATypes::Boolean.new('false')
   b2.to_bool      # => false
   b2.true?        # => falsse
   b3.truthy?      # => true
   b2.falsey?      # => false   
   
-  bnil = Boolean.new(nil)
+  bnil = ATypes::Boolean.new(nil)
   bnil.to_bool    # => false
   bnil.true?      # => false
   bnil.truthy?    # => false
