@@ -12,8 +12,8 @@ module ATypes
     it { is_expected.to respond_to(:truthy?)    }
     it { is_expected.to respond_to(:falsey?)   }
     it { is_expected.to respond_to(:&)        }
+    it { is_expected.to respond_to(:|)        }
     # it { is_expected.to respond_to(:^)        }
-    # it { is_expected.to respond_to(:|)        }
     # it { is_expected.to respond_to(:inspect)  }
     # it { is_expected.to respond_to(:to_s)     }
 
