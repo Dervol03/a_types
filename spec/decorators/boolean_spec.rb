@@ -4,11 +4,14 @@ module ATypes
   describe Boolean do
     subject { described_class.new('y') }
 
+    let(:positive_bool){ Boolean.new(true)  }
+    let(:negative_bool){ Boolean.new(false) }
+
     it { is_expected.to respond_to(:true?)    }
     it { is_expected.to respond_to(:false?)   }
     it { is_expected.to respond_to(:truthy?)    }
     it { is_expected.to respond_to(:falsey?)   }
-    # it { is_expected.to respond_to(:&)        }
+    it { is_expected.to respond_to(:&)        }
     # it { is_expected.to respond_to(:^)        }
     # it { is_expected.to respond_to(:|)        }
     # it { is_expected.to respond_to(:inspect)  }
@@ -163,5 +166,77 @@ module ATypes
         end # other object
       end # other object is given
     end # #truth
+
+
+    describe '#&' do
+      context 'other has #truth understanding' do
+        it 'performs logical AND operation with other' do
+          expect(positive_bool & Boolean.new(true)).to be true
+          expect(positive_bool & Boolean.new(false)).to be false
+
+          expect(negative_bool & Boolean.new(true)).to be false
+          expect(negative_bool & Boolean.new(false)).to be false
+        end
+      end # other has #truth understanding
+
+
+      context 'other is native boolean' do
+        it 'performs logical AND with native boolean' do
+          expect(positive_bool & true).to be true
+          expect(positive_bool & false).to be false
+
+          expect(negative_bool & true).to be false
+          expect(negative_bool & false).to be false
+        end
+      end # other is native boolean
+
+      context 'other is non boolean object' do
+        it 'performs logical AND according to Ruby truthy behavior' do
+          expect(positive_bool & 'one').to be true
+          expect(positive_bool & -1).to be true
+          expect(positive_bool & nil).to be false
+
+          expect(negative_bool & 'one').to be false
+          expect(negative_bool & -1).to be false
+          expect(negative_bool & nil).to be false
+        end
+      end # other is non boolean object
+    end # #&
+
+
+    describe '#|' do
+      context 'other has #truth understanding' do
+        it 'performs logical OR operation with other' do
+          expect(positive_bool | Boolean.new(true)).to be true
+          expect(positive_bool | Boolean.new(false)).to be true
+
+          expect(negative_bool | Boolean.new(true)).to be true
+          expect(negative_bool | Boolean.new(false)).to be false
+        end
+      end # other has #truth understanding
+
+
+      context 'other is native boolean' do
+        it 'performs logical OR with native boolean' do
+          expect(positive_bool | true).to be true
+          expect(positive_bool | false).to be true
+
+          expect(negative_bool | true).to be true
+          expect(negative_bool | false).to be false
+        end
+      end # other is native boolean
+
+      context 'other is non boolean object' do
+        it 'performs logical OR according to Ruby truthy behavior' do
+          expect(positive_bool | 'one').to be true
+          expect(positive_bool | -1).to be true
+          expect(positive_bool | nil).to be true
+
+          expect(negative_bool | 'one').to be true
+          expect(negative_bool | -1).to be true
+          expect(negative_bool | nil).to be false
+        end
+      end # other is non boolean object
+    end # #|
   end # Boolean
 end # ATypes

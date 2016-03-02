@@ -57,6 +57,45 @@ module ATypes
     end
 
 
+    # Will operate a logical AND with other, based on this Boolean's #truth
+    # interpretation. It will therefore handle Ruby's native booleans and the
+    # Boolean instances in the very same way. Otherwise, the logic abides Ruby's
+    # default truthy interpretation.
+    #
+    # @example
+    #   Boolean.new(true) & Boolean.new(true) # => true
+    #   Boolean.new('y')  & "hello"           # => true
+    #   Boolean.new('y')  & nil               # => false
+    #
+    # @param [Boolean, true, false, Object] other to logically combine with this
+    #                                       Boolean.
+    # @return [true, false] result of logical AND.
+    def &(other)
+      other_value = other.respond_to?(:truth) ? other.truth : other
+      truth & other_value
+    end
+
+
+    # Will operate a logical OR with other, based on this Boolean's #truth
+    # interpretation. It will therefore handle Ruby's native booleans and the
+    # Boolean instances in the very same way. Otherwise, the logic abides Ruby's
+    # default truthy interpretation.
+    #
+    # @example
+    #   Boolean.new(true)   | Boolean.new(true) # => true
+    #   Boolean.new('y')    | "hello"           # => true
+    #   Boolean.new('y')    | nil               # => true
+    #   Boolean.new(false)  | nil              # => false
+    #
+    # @param [Boolean, true, false, Object] other to logically combine with this
+    #                                       Boolean.
+    # @return [true, false] result of logical OR.
+    def |(other)
+      other_value = other.respond_to?(:truth) ? other.truth : other
+      truth | other_value
+    end
+
+
     private
 
     def convert_string(obj)
