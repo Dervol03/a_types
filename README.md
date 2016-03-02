@@ -105,8 +105,8 @@ Loading the boolean extension will provide a `#to_bool` to any object.
 ### Decorators
    
 Loading the boolean decorator instead will provide a `Boolean` decorator 
-class, providing an interpretation of truth to any provided object without 
-changing it.
+class. It provides an interpretation of truth to any provided object, 
+preserving its original behavior by delegation, as well.
 
 ```ruby
    
@@ -114,6 +114,8 @@ changing it.
   
   b = ATypes::Boolean.new('yes')
   b.content       # => 'yes'
+  b.size          # => 3
+  
   b.to_bool       # => true
   b.true?         # => true
   b.truthy?       # => true
