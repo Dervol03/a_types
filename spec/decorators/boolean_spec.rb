@@ -14,8 +14,8 @@ module ATypes
     it { is_expected.to respond_to(:&)        }
     it { is_expected.to respond_to(:|)        }
     it { is_expected.to respond_to(:^)        }
-    # it { is_expected.to respond_to(:inspect)  }
-    # it { is_expected.to respond_to(:to_s)     }
+    it { is_expected.to respond_to(:inspect)  }
+    it { is_expected.to respond_to(:to_s)     }
 
     describe '#true?' do
       context 'content is true' do
@@ -274,5 +274,13 @@ module ATypes
         end
       end # other is non boolean object
     end # #^
+
+
+    describe '#to_s' do
+      it 'retruns the #truth interpretation as string' do
+        expect(positive_bool.to_s).to eq 'true'
+        expect(negative_bool.to_s).to eq 'false'
+      end
+    end # #to_s
   end # Boolean
 end # ATypes

@@ -116,6 +116,17 @@ module ATypes
     end
 
 
+    # @example
+    #   Boolean.new('y').to_s   # => "true"
+    #
+    # @return [String] string representation of this Boolean's #truth
+    #                  interpretation.
+    def to_s
+      truth.to_s
+    end
+    alias inspect to_s
+
+
     private
 
     def convert_string(obj)
