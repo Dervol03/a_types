@@ -46,6 +46,8 @@ module ATypes
     # @return [true, false] whether the content is truthy according to Ruby's
     #                       rules.
     def truthy?
+      # content can literally be ANYTHING, thus double negation should be the
+      # tool of choice here.
       !!content
     end
 
@@ -145,7 +147,7 @@ module ATypes
 
     def extract_truth(obj)
       strategy = "convert_#{obj.class.name.downcase}"
-      @truth = respond_to?(strategy, true) ? send(strategy, obj) : !!obj
+      @truth = respond_to?(strategy, true) ? send(strategy, obj) : truthy?
     end
 
 

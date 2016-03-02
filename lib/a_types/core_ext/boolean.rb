@@ -69,7 +69,7 @@ end
 class Object
   # @return [true] respecting the Ruby way.
   def to_bool
-    !!self
+    !nil?
   end
   alias to_b to_bool
   alias to_bool! to_bool
