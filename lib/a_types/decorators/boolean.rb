@@ -73,7 +73,7 @@ module ATypes
     #                                       Boolean.
     # @return [true, false] result of logical AND.
     def &(other)
-      other_value = other.respond_to?(:to_bool) ? other.to_bool : other
+      other_value = other.respond_to?(:truthy?) ? other.truthy? : other
       to_bool & other_value
     end
 
@@ -93,7 +93,7 @@ module ATypes
     #                                       Boolean.
     # @return [true, false] result of logical OR.
     def |(other)
-      other_value = other.respond_to?(:to_bool) ? other.to_bool : other
+      other_value = other.respond_to?(:truthy?) ? other.truthy? : other
       to_bool | other_value
     end
 
@@ -113,7 +113,7 @@ module ATypes
     #                                       Boolean.
     # @return [true, false] result of logical OR.
     def ^(other)
-      other_value = other.respond_to?(:to_bool) ? other.to_bool : other
+      other_value = other.respond_to?(:truthy?) ? other.truthy? : other
       to_bool ^ other_value
     end
 
