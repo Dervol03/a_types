@@ -1,3 +1,6 @@
+[![Code Climate](https://codeclimate.com/github/Dervol03/a_types/badges/gpa.svg)](https://codeclimate.com/github/Dervol03/a_types)
+[![Build Status](https://travis-ci.org/Dervol03/a_types.svg?branch=master)](https://travis-ci.org/Dervol03/a_types)
+
 # ATypes (Advanced Data Types)
 
 This gem provides some convenience methods to Ruby's basic data types which 
