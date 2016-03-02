@@ -13,7 +13,7 @@ module ATypes
     it { is_expected.to respond_to(:falsey?)   }
     it { is_expected.to respond_to(:&)        }
     it { is_expected.to respond_to(:|)        }
-    # it { is_expected.to respond_to(:^)        }
+    it { is_expected.to respond_to(:^)        }
     # it { is_expected.to respond_to(:inspect)  }
     # it { is_expected.to respond_to(:to_s)     }
 
@@ -238,5 +238,41 @@ module ATypes
         end
       end # other is non boolean object
     end # #|
+
+
+    describe '#^' do
+      context 'other has #truth understanding' do
+        it 'performs logical XOR operation with other' do
+          expect(positive_bool ^ Boolean.new(true)).to be false
+          expect(positive_bool ^ Boolean.new(false)).to be true
+
+          expect(negative_bool ^ Boolean.new(true)).to be true
+          expect(negative_bool ^ Boolean.new(false)).to be false
+        end
+      end # other has #truth understanding
+
+
+      context 'other is native boolean' do
+        it 'performs logical XOR with native boolean' do
+          expect(positive_bool ^ true).to be false
+          expect(positive_bool ^ false).to be true
+
+          expect(negative_bool ^ true).to be true
+          expect(negative_bool ^ false).to be false
+        end
+      end # other is native boolean
+
+      context 'other is non boolean object' do
+        it 'performs logical XOR according to Ruby truthy behavior' do
+          expect(positive_bool ^ 'one').to be false
+          expect(positive_bool ^ -1).to be false
+          expect(positive_bool ^ nil).to be true
+
+          expect(negative_bool ^ 'one').to be true
+          expect(negative_bool ^ -1).to be true
+          expect(negative_bool ^ nil).to be false
+        end
+      end # other is non boolean object
+    end # #^
   end # Boolean
 end # ATypes
