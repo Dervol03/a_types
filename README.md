@@ -56,6 +56,7 @@ You have to specify which parts you wish to include in your project. Let's
 assume you prefer the core extensions, then you may use following lines:
 
 ```ruby
+
   require 'a_types/core_ext/boolean'      # => loads Boolean extensions
   require 'a_types/core_ext/enumerable'   # => loads Enumarable extensions
   require 'a_types/core_ext/all'          # => loads all core extentions
@@ -64,6 +65,7 @@ assume you prefer the core extensions, then you may use following lines:
 You are more the decorator kind? This gem has exactly what you want:
 
 ```ruby
+
   require 'a_types/decorators/boolean'    # => loads ATypes::Boolean decorator
   require 'a_types/decorators/array'      # => loads ATypes::Array decorator
   require 'a_types/decorators/all'        # => loads all available decorators
@@ -84,6 +86,7 @@ You may also find the documentation of each file there or on [rubygems.org]
 Loading the boolean extension will provide a `#to_bool` to any object.
 
 ```ruby
+
   require 'a_types/core_ext/boolean'
   
   'yes'.to_bool             # => true
@@ -99,26 +102,26 @@ class, providing an interpretation of truth to any provided object without
 changing it.
 
 ```ruby
-
-    require 'a_types/decorators/boolean'
-    
-    b = Boolean.new('yes')
-    b.value         # => 'yes'
-    b.to_bool       # => true
-    b.true?         # => true
-    b.truthy?       # => true
-    
-    b2 = Boolean.new('false')
-    b2.to_bool      # => false
-    b2.true?        # => falsse
-    b3.truthy?      # => true
-    b2.falsey?      # => false   
-    
-    bnil = Boolean.new(nil)
-    bnil.to_bool    # => false
-    bnil.true?      # => false
-    bnil.truthy?    # => false
-    bnil.falsey?    # => true
+   
+  require 'a_types/decorators/boolean'
+  
+  b = Boolean.new('yes')
+  b.value         # => 'yes'
+  b.to_bool       # => true
+  b.true?         # => true
+  b.truthy?       # => true
+  
+  b2 = Boolean.new('false')
+  b2.to_bool      # => false
+  b2.true?        # => falsse
+  b3.truthy?      # => true
+  b2.falsey?      # => false   
+  
+  bnil = Boolean.new(nil)
+  bnil.to_bool    # => false
+  bnil.true?      # => false
+  bnil.truthy?    # => false
+  bnil.falsey?    # => true
     
 ```
 
