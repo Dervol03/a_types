@@ -5,12 +5,11 @@ module ATypes
   # certain strings, e.g. transforming the *'true'* to an instance of the
   # TrueClass. This behavior may be turned off, though, in which case the
   # standard Ruby evaluation of truthy and falsey will be respected.
-  class Boolean
-    attr_reader :value
+  class Boolean < SimpleDelegator
 
-    # @param [Object] obj to be decorated as Boolean.
-    def initialize(obj)
-      @value = obj
+    # @return [Object] returns the initial object's content
+    def content
+      __getobj__
     end
 
 
@@ -25,7 +24,7 @@ module ATypes
     # - any other object will be transformed to a hard boolean according Ruby's
     #   default truthy evaluation.
     def to_bool
-      @truth ||= extract_truth(@value)
+      @truth ||= extract_truth(content)
     end
     alias truth to_bool
     alias to_b to_bool
@@ -47,14 +46,14 @@ module ATypes
     # @return [true, false] whether the content is truthy according to Ruby's
     #                       rules.
     def truthy?
-      !!value
+      !!content
     end
 
 
     # @return [true, false] whether the content is falsey according to Ruby's
     #                       rules.
     def falsey?
-      !value
+      !content
     end
 
 

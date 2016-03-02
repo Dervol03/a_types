@@ -113,7 +113,7 @@ changing it.
   require 'a_types/decorators/boolean'
   
   b = ATypes::Boolean.new('yes')
-  b.value         # => 'yes'
+  b.content       # => 'yes'
   b.to_bool       # => true
   b.true?         # => true
   b.truthy?       # => true
