@@ -1,4 +1,3 @@
-#
 module ATypes
   # A decorator to any object providing Boolean behavior. In comparisons, it
   # always returns the real true or false instance to avoid ambiguity. By
@@ -25,21 +24,23 @@ module ATypes
     #
     # - any other object will be transformed to a hard boolean according Ruby's
     #   default truthy evaluation.
-    def truth
+    def to_bool
       @truth ||= extract_truth(@value)
     end
+    alias truth to_bool
+    alias to_b to_bool
 
 
     # @return [true, false] depending on whether the content interprets to true.
     def true?
-      truth
+      to_bool
     end
 
 
     # @return [true, false] depending on whether the content interprets to
     #                       false.
     def false?
-      !truth
+      !to_bool
     end
 
 
@@ -57,7 +58,7 @@ module ATypes
     end
 
 
-    # Will operate a logical AND with other, based on this Boolean's #truth
+    # Will operate a logical AND with other, based on this Boolean's #to_bool
     # interpretation. It will therefore handle Ruby's native booleans and the
     # Boolean instances in the very same way. Otherwise, the logic abides Ruby's
     # default truthy interpretation.
@@ -71,12 +72,12 @@ module ATypes
     #                                       Boolean.
     # @return [true, false] result of logical AND.
     def &(other)
-      other_value = other.respond_to?(:truth) ? other.truth : other
-      truth & other_value
+      other_value = other.respond_to?(:to_bool) ? other.to_bool : other
+      to_bool & other_value
     end
 
 
-    # Will operate a logical OR with other, based on this Boolean's #truth
+    # Will operate a logical OR with other, based on this Boolean's #to_bool
     # interpretation. It will therefore handle Ruby's native booleans and the
     # Boolean instances in the very same way. Otherwise, the logic abides Ruby's
     # default truthy interpretation.
@@ -91,12 +92,12 @@ module ATypes
     #                                       Boolean.
     # @return [true, false] result of logical OR.
     def |(other)
-      other_value = other.respond_to?(:truth) ? other.truth : other
-      truth | other_value
+      other_value = other.respond_to?(:to_bool) ? other.to_bool : other
+      to_bool | other_value
     end
 
 
-    # Will operate a logical XOR with other, based on this Boolean's #truth
+    # Will operate a logical XOR with other, based on this Boolean's #to_bool
     # interpretation. It will therefore handle Ruby's native booleans and the
     # Boolean instances in the very same way. Otherwise, the logic abides Ruby's
     # default truthy interpretation.
@@ -111,8 +112,8 @@ module ATypes
     #                                       Boolean.
     # @return [true, false] result of logical OR.
     def ^(other)
-      other_value = other.respond_to?(:truth) ? other.truth : other
-      truth ^ other_value
+      other_value = other.respond_to?(:to_bool) ? other.to_bool : other
+      to_bool ^ other_value
     end
 
 
@@ -122,7 +123,7 @@ module ATypes
     # @return [String] string representation of this Boolean's #truth
     #                  interpretation.
     def to_s
-      truth.to_s
+      to_bool.to_s
     end
     alias inspect to_s
 

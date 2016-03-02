@@ -94,14 +94,14 @@ module ATypes
           context 'string is one of: "y" "Y" "1" ' do
             it 'returns true' do
               %w(y Y 1).each do |char|
-                expect(described_class.new(char).truth).to be true
+                expect(described_class.new(char).to_bool).to be true
               end
             end
           end # string is one of: "y" "Y" "1"
 
           context 'string is any other character' do
             it 'returns false' do
-              expect(described_class.new('n').truth).to be false
+              expect(described_class.new('n').to_bool).to be false
             end
           end # string is any other character
         end # string consists of a singly character
@@ -111,14 +111,14 @@ module ATypes
           context 'string is on of: "yes" "Yes" "YES" "true" "True" "TRUE"' do
             it 'returns true' do
               %w(yes Yes YES true True TRUE).each do |word|
-                expect(described_class.new(word).truth).to be true
+                expect(described_class.new(word).to_bool).to be true
               end
             end
           end # string is on of: "yes" "Yes" "YES" "true" "True" "TRUE"
 
           context 'string is any other word' do
             it 'returns false' do
-              expect(described_class.new('false').truth).to be false
+              expect(described_class.new('false').to_bool).to be false
             end
           end # string is any other word
         end # string has multiple characters
@@ -129,7 +129,7 @@ module ATypes
         context 'numeric is greather than 0' do
           it 'returns true' do
             [2, 100].each do |value|
-              expect(described_class.new(value).truth).to be true
+              expect(described_class.new(value).to_bool).to be true
             end
           end
         end # numeric is greather than 0
@@ -137,7 +137,7 @@ module ATypes
         context 'numeric is smaller or equal to 0' do
           it 'returns false' do
             [0, -1, -10].each do |value|
-              expect(described_class.new(value).truth).to be false
+              expect(described_class.new(value).to_bool).to be false
             end
           end
         end # numeric is smaller or equal to 0
@@ -147,13 +147,13 @@ module ATypes
       context 'other object is given' do
         context 'object is nil' do
           it 'returns false' do
-            expect(described_class.new(nil).truth).to be false
+            expect(described_class.new(nil).to_bool).to be false
           end
         end # object is nil
 
         context 'object is false' do
           it 'returns false' do
-            expect(described_class.new(false).truth).to be false
+            expect(described_class.new(false).to_bool).to be false
           end
         end # object is false
 
@@ -161,7 +161,7 @@ module ATypes
         context 'other object' do
           it 'returns true' do
             obj = Object.new
-            expect(described_class.new(obj).truth).to be true
+            expect(described_class.new(obj).to_bool).to be true
           end
         end # other object
       end # other object is given
