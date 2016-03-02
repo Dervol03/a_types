@@ -176,10 +176,6 @@ end # Object
 describe NilClass do
   it_behaves_like 'a Boolean', nil
 
-  it 'acts as a Boolean' do
-    expect(nil).to be_a(Boolean)
-  end
-
   describe '#to_bool' do
     it 'returns false' do
       expect(nil.to_bool).to be false
@@ -196,10 +192,6 @@ end # NilClass
 
 describe TrueClass do
   it_behaves_like 'a Boolean', true
-
-  it 'acts as a Boolean' do
-    expect(true).to be_a(Boolean)
-  end
 
   describe '#to_bool' do
     it 'returns false' do
@@ -218,9 +210,6 @@ end # TrueClass
 describe FalseClass do
   it_behaves_like 'a Boolean', false
 
-  it 'acts as a Boolean' do
-    expect(false).to be_a(Boolean)
-  end
 
   describe '#to_bool' do
     it 'returns false' do

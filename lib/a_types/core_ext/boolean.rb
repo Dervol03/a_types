@@ -1,14 +1,7 @@
-# Empty module to be included in the TrueClass and FalseClass to permit a check
-# for whether a variable is a Boolean
-#
-# @example
-#   bool = true
-#   bool.is_a?(Boolean)     #=> true
-#
-#   no_bool = 'nope'
-#   no_bool.is_a?(Boolean)  #=> false
-module Boolean
-end
+# This file adds the #to_bool method to numerous default classes of ruby,
+# providing a more convenient of boolean handling to them. There are special
+# cases for descendents of String and Numeric, all other objects will simply
+# return their truthy-value according to Ruby's interpretation of truth.
 
 
 # Adds #to_bool and #to_bool!
@@ -76,32 +69,17 @@ end
 class Object
   # @return [true] respecting the Ruby way.
   def to_bool
-    true
+    !!self
   end
   alias to_b to_bool
   alias to_bool! to_bool
   alias to_b! to_bool
 end
 
-# Adds #to_bool and #to_bool!
-class NilClass
-  include Boolean
-
-  # @return [false] respecting the Ruby way.
-  def to_bool
-    false
-  end
-
-  alias to_b to_bool
-  alias to_bool! to_bool
-  alias to_b! to_bool
-end
 
 
 # Adds #to_bool and #to_bool!
 class TrueClass
-  include Boolean
-
   # @return [true] respecting the Ruby way.
   def to_bool
     self
@@ -114,8 +92,6 @@ end
 
 # Adds #to_bool and #to_bool!
 class FalseClass
-  include Boolean
-
   # @return [false] respecting the Ruby way.
   def to_bool
     self
