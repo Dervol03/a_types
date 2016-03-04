@@ -11,7 +11,19 @@ class EnumerableWrap < SimpleDelegator
   #
   # @return [true, false] depending on whether this object has content.
   def filled?
-    content.respond_to?(:empty?) && !content.empty?
+    !blank?
+  end
+
+
+  # Checks whether the object is nil or empty.
+  #
+  # @return [true, false] if object is empty or nil.
+  def blank?
+    if content.respond_to?(:empty?)
+      content.empty?
+    else
+      content.nil?
+    end
   end
 
 
