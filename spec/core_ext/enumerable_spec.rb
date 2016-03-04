@@ -1,29 +1,72 @@
 require 'core_ext_helper'
 
-describe Enumerable do
-  class EnumTestClass
-    include Enumerable
-  end
+describe Object do
+  describe '#blank?' do
+    context 'object is nil' do
+      it 'returns true' do
+        expect(nil.blank?).to be true
+      end
+    end # object is nil
 
-  subject { EnumTestClass.new }
+    context 'object has no #empty? check' do
+      it 'returns true' do
+        expect(true.blank?).to be false
+      end
+    end # object has no #empty? check
 
-  it { is_expected.to respond_to(:filled?) }
+
+    context 'object has an #empty? check' do
+      context 'object has no content' do
+        it 'returns true' do
+          expect(''.blank?).to be true
+          expect([].blank?).to be true
+          expect({}.blank?).to be true
+        end
+      end # object has no content
+
+
+      context 'has some content' do
+        it 'returns false' do
+          expect('subject'.blank?).to be false
+          expect([1].blank?).to be false
+          expect({a: 1, b: 2}.blank?).to be false
+        end
+      end # has some content
+    end # object has an #empty? check
+  end # #blank?
+
 
   describe '#filled?' do
-    context 'is empty' do
-      before(:each){ allow(subject).to receive(:empty?).and_return(true) }
-
+    context 'object is nil' do
       it 'returns false' do
-        expect(subject.filled?).to be false
+        expect(nil.filled?).to be false
       end
-    end # is empty
+    end # object is nil
 
-    context 'has at least one element' do
-      before(:each){ allow(subject).to receive(:empty?).and_return(false) }
-
+    context 'object has no #empty? check' do
       it 'returns true' do
-        expect(subject.filled?).to be true
+        expect(true.filled?).to be true
       end
-    end # has at least one element
+    end # object has no #empty? check
+
+
+    context 'object has an #empty? check' do
+      context 'object has no content' do
+        it 'returns false' do
+          expect(''.filled?).to be false
+          expect([].filled?).to be false
+          expect({}.filled?).to be false
+        end
+      end # object has no content
+
+
+      context 'has some content' do
+        it 'returns true' do
+          expect('subject'.filled?).to be true
+          expect([1].filled?).to be true
+          expect({a: 1, b: 2}.filled?).to be true
+        end
+      end # has some content
+    end # object has an #empty? check
   end # #filled?
-end # Enumerable
+end # Object
