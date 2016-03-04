@@ -121,7 +121,7 @@ module ATypes
     # @example
     #   BooleanWrap.new('y').to_s   # => "true"
     #
-    # @return [String] string representation of this BooleanWrap's #truth
+    # @return [String] string representation of this BooleanWrap's #to_bool
     #                  interpretation.
     def to_s
       to_bool.to_s
@@ -130,11 +130,11 @@ module ATypes
 
 
     # Will try to convert given object to a boolean value according to
-    # #to_bool!. If this fails, it will return nil
+    # #to_bool!. If this fails, it will return nil.
     #
     # @param [Object] source to be converted to a boolean value.
     # @return [true, false, nil] depending on whether and how the object is
-    # convertible
+    #                            convertible
     def self.try_convert(source)
       new(source).to_bool!
     rescue ArgumentError
