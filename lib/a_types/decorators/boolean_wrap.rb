@@ -129,6 +129,18 @@ module ATypes
     alias inspect to_s
 
 
+    # Will try to convert given object to a boolean value according to
+    # #to_bool!. If this fails, it will return nil
+    #
+    # @param [Object] source to be converted to a boolean value.
+    # @return [true, false, nil] depending on whether and how the object is
+    # convertible
+    def self.try_convert(source)
+      new(source).to_bool!
+    rescue ArgumentError
+      nil
+    end
+
     private
 
     def convert_string(obj)

@@ -290,5 +290,33 @@ module ATypes
         expect(negative_bool.to_s).to eq 'false'
       end
     end # #to_s
+
+
+    context 'class methods' do
+      describe '.try_convert' do
+        context 'object can be converted to true' do
+          it 'returns true' do
+            expect(described_class.try_convert('true')).to be true
+            expect(described_class.try_convert('y')).to be true
+            expect(described_class.try_convert(1)).to be true
+          end
+        end # object can be converted to true
+
+        context 'object can be converted to false' do
+          it 'returns false' do
+            expect(described_class.try_convert('no')).to be false
+            expect(described_class.try_convert(-2)).to be false
+            expect(described_class.try_convert(nil)).to be false
+          end
+        end # object can be converted to false
+
+
+        context 'object is a non-convertible string' do
+          it 'returns nil' do
+            expect(described_class.try_convert('not conertible')).to be nil
+          end
+        end # object is not convertible to boolean
+      end # .try_convert
+    end # class methods
   end # BooleanWrap
 end # ATypes
