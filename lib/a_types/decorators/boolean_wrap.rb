@@ -5,7 +5,7 @@ module ATypes
   # certain strings, e.g. transforming the *'true'* to an instance of the
   # TrueClass. This behavior may be turned off, though, in which case the
   # standard Ruby evaluation of truthy and falsey will be respected.
-  class Boolean < SimpleDelegator
+  class BooleanWrap < SimpleDelegator
 
     # @return [Object] returns the initial object's content
     def content
@@ -13,7 +13,7 @@ module ATypes
     end
 
 
-    # Extracts the truth from this Boolean's value according to the following
+    # Extracts the truth from this BooleanWrap's value according to the following
     # rules:
     # - for any kind of numeric: values above *0* are *true*, others false.
     #
@@ -59,18 +59,18 @@ module ATypes
     end
 
 
-    # Will operate a logical AND with other, based on this Boolean's #to_bool
+    # Will operate a logical AND with other, based on this BooleanWrap's #to_bool
     # interpretation. It will therefore handle Ruby's native booleans and the
-    # Boolean instances in the very same way. Otherwise, the logic abides Ruby's
+    # BooleanWrap instances in the very same way. Otherwise, the logic abides Ruby's
     # default truthy interpretation.
     #
     # @example
-    #   Boolean.new(true) & Boolean.new(true) # => true
-    #   Boolean.new('y')  & "hello"           # => true
-    #   Boolean.new('y')  & nil               # => false
+    #   BooleanWrap.new(true) & BooleanWrap.new(true) # => true
+    #   BooleanWrap.new('y')  & "hello"           # => true
+    #   BooleanWrap.new('y')  & nil               # => false
     #
-    # @param [Boolean, true, false, Object] other to logically combine with this
-    #                                       Boolean.
+    # @param [BooleanWrap, true, false, Object] other to logically combine with this
+    #                                       BooleanWrap.
     # @return [true, false] result of logical AND.
     def &(other)
       other_value = other.respond_to?(:truthy?) ? other.truthy? : other
@@ -78,19 +78,19 @@ module ATypes
     end
 
 
-    # Will operate a logical OR with other, based on this Boolean's #to_bool
+    # Will operate a logical OR with other, based on this BooleanWrap's #to_bool
     # interpretation. It will therefore handle Ruby's native booleans and the
-    # Boolean instances in the very same way. Otherwise, the logic abides Ruby's
+    # BooleanWrap instances in the very same way. Otherwise, the logic abides Ruby's
     # default truthy interpretation.
     #
     # @example
-    #   Boolean.new(true)   | Boolean.new(true) # => true
-    #   Boolean.new('y')    | "hello"           # => true
-    #   Boolean.new('y')    | nil               # => true
-    #   Boolean.new(false)  | nil              # => false
+    #   BooleanWrap.new(true)   | BooleanWrap.new(true) # => true
+    #   BooleanWrap.new('y')    | "hello"           # => true
+    #   BooleanWrap.new('y')    | nil               # => true
+    #   BooleanWrap.new(false)  | nil              # => false
     #
-    # @param [Boolean, true, false, Object] other to logically combine with this
-    #                                       Boolean.
+    # @param [BooleanWrap, true, false, Object] other to logically combine with this
+    #                                       BooleanWrap.
     # @return [true, false] result of logical OR.
     def |(other)
       other_value = other.respond_to?(:truthy?) ? other.truthy? : other
@@ -98,19 +98,19 @@ module ATypes
     end
 
 
-    # Will operate a logical XOR with other, based on this Boolean's #to_bool
+    # Will operate a logical XOR with other, based on this BooleanWrap's #to_bool
     # interpretation. It will therefore handle Ruby's native booleans and the
-    # Boolean instances in the very same way. Otherwise, the logic abides Ruby's
+    # BooleanWrap instances in the very same way. Otherwise, the logic abides Ruby's
     # default truthy interpretation.
     #
     # @example
-    #   Boolean.new(true)   ^ Boolean.new(true) # => false
-    #   Boolean.new('y')    ^ "hello"           # => true
-    #   Boolean.new('y')    ^ nil               # => true
-    #   Boolean.new(false)  ^ nil              # => false
+    #   BooleanWrap.new(true)   ^ BooleanWrap.new(true) # => false
+    #   BooleanWrap.new('y')    ^ "hello"           # => true
+    #   BooleanWrap.new('y')    ^ nil               # => true
+    #   BooleanWrap.new(false)  ^ nil              # => false
     #
-    # @param [Boolean, true, false, Object] other to logically combine with this
-    #                                       Boolean.
+    # @param [BooleanWrap, true, false, Object] other to logically combine with this
+    #                                       BooleanWrap.
     # @return [true, false] result of logical OR.
     def ^(other)
       other_value = other.respond_to?(:truthy?) ? other.truthy? : other
@@ -119,9 +119,9 @@ module ATypes
 
 
     # @example
-    #   Boolean.new('y').to_s   # => "true"
+    #   BooleanWrap.new('y').to_s   # => "true"
     #
-    # @return [String] string representation of this Boolean's #truth
+    # @return [String] string representation of this BooleanWrap's #truth
     #                  interpretation.
     def to_s
       to_bool.to_s
@@ -151,5 +151,5 @@ module ATypes
     end
 
 
-  end # Boolean
+  end # BooleanWrap
 end # ATypes

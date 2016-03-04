@@ -1,11 +1,11 @@
 require 'decorators_helper'
 
 module ATypes
-  describe Boolean do
+  describe BooleanWrap do
     subject { described_class.new('y') }
 
-    let(:positive_bool){ Boolean.new(true)  }
-    let(:negative_bool){ Boolean.new(false) }
+    let(:positive_bool){ BooleanWrap.new(true)  }
+    let(:negative_bool){ BooleanWrap.new(false) }
 
     it { is_expected.to respond_to(:true?)    }
     it { is_expected.to respond_to(:false?)   }
@@ -21,7 +21,7 @@ module ATypes
       obj = Object.new
       expect(obj).to receive(:native_method)
 
-      wrapped_obj = Boolean.new(obj)
+      wrapped_obj = BooleanWrap.new(obj)
       wrapped_obj.native_method
     end
 
@@ -179,11 +179,11 @@ module ATypes
     describe '#&' do
       context 'other has #truth understanding' do
         it 'performs logical AND operation with other' do
-          expect(positive_bool & Boolean.new(true)).to be true
-          expect(positive_bool & Boolean.new(false)).to be false
+          expect(positive_bool & BooleanWrap.new(true)).to be true
+          expect(positive_bool & BooleanWrap.new(false)).to be false
 
-          expect(negative_bool & Boolean.new(true)).to be false
-          expect(negative_bool & Boolean.new(false)).to be false
+          expect(negative_bool & BooleanWrap.new(true)).to be false
+          expect(negative_bool & BooleanWrap.new(false)).to be false
         end
       end # other has #truth understanding
 
@@ -215,11 +215,11 @@ module ATypes
     describe '#|' do
       context 'other has #truth understanding' do
         it 'performs logical OR operation with other' do
-          expect(positive_bool | Boolean.new(true)).to be true
-          expect(positive_bool | Boolean.new(false)).to be true
+          expect(positive_bool | BooleanWrap.new(true)).to be true
+          expect(positive_bool | BooleanWrap.new(false)).to be true
 
-          expect(negative_bool | Boolean.new(true)).to be true
-          expect(negative_bool | Boolean.new(false)).to be false
+          expect(negative_bool | BooleanWrap.new(true)).to be true
+          expect(negative_bool | BooleanWrap.new(false)).to be false
         end
       end # other has #truth understanding
 
@@ -251,11 +251,11 @@ module ATypes
     describe '#^' do
       context 'other has #truth understanding' do
         it 'performs logical XOR operation with other' do
-          expect(positive_bool ^ Boolean.new(true)).to be false
-          expect(positive_bool ^ Boolean.new(false)).to be true
+          expect(positive_bool ^ BooleanWrap.new(true)).to be false
+          expect(positive_bool ^ BooleanWrap.new(false)).to be true
 
-          expect(negative_bool ^ Boolean.new(true)).to be true
-          expect(negative_bool ^ Boolean.new(false)).to be false
+          expect(negative_bool ^ BooleanWrap.new(true)).to be true
+          expect(negative_bool ^ BooleanWrap.new(false)).to be false
         end
       end # other has #truth understanding
 
@@ -290,5 +290,5 @@ module ATypes
         expect(negative_bool.to_s).to eq 'false'
       end
     end # #to_s
-  end # Boolean
+  end # BooleanWrap
 end # ATypes
