@@ -1,19 +1,34 @@
 # Provides convenience methods to convert objects into number representations
 # . Most prominently #to_num method.
+
+# Numeric additions.
 class Object
-  # Will try to convert this Object into a number. Returns nil of this fails.
-  #
-  # @return [Numeric, nil] depending on whether conversion to number is
-  # possible.
+  # @return nil
   def to_num
-    strategy = "convert_#{self.class.name.downcase}_to_num"
-    respond_to?(strategy, true) ? send(strategy) : nil
+    nil
   end
+end # Object
 
 
-  private
+# Numeric Additions.
+class Numeric
+  # Returns itself.
+  #
+  # @return [Numeric] itself.
+  def to_num
+    self
+  end
+end # Numeric
 
-  def convert_string_to_num
+
+# Numeric Additions.
+class String
+  # Will convert any string with a valid number into the correct type (Fixnum
+  # or Float). If this String does not contain a valid number, nil will be
+  # returned.
+  #
+  # @return [Numeric, nil] depending on the value of this String.
+  def to_num
     case self
     when /^-?\d+$/ then
       to_i
@@ -21,30 +36,40 @@ class Object
       sub(',', '.').to_f
     end
   end
+end # String
 
 
-  def convert_numeric_to_num
-    self
-  end
-  alias convert_integer_to_num  convert_numeric_to_num
-  alias convert_fixnum_to_num   convert_numeric_to_num
-  alias convert_float_to_num    convert_numeric_to_num
-  alias convert_bignum_to_num   convert_numeric_to_num
-
-
-  def convert_trueclass_to_num
+# Numeric Additions.
+class TrueClass
+  # @return 1
+  def to_num
     1
   end
+end
 
 
-  def convert_falseclass_to_num
+# Numeric Additions.
+class FalseClass
+  # @return -1
+  def to_num
     -1
   end
+end
 
 
-  def convert_array_to_num
+# Numeric Additions.
+class Array
+  # Tries to convert the joined result of this Array into a number. If this
+  # fails, nil is returned.
+  #
+  # @return [Numeric, nil] depending on whether joining returns a valid
+  #                   number String.
+  #
+  # @example
+  #   [1,2,3,4].to_num            # => 1234
+  #   [1, '1.5', 6, 7].to_num     # => 11.567
+  #   [1, 'a', 2].to_num          # => nil
+  def to_num
     join.to_num
   end
-
-
-end # Object
+end # Array
