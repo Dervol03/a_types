@@ -305,8 +305,9 @@ describe ATypes::BooleanWrap do
 
 
       context 'object is a non-convertible string' do
-        it 'returns nil' do
-          expect(described_class.try_convert('not conertible')).to be nil
+        it 'raises ArgumentError' do
+          expect { described_class.try_convert('not convertible') }
+            .to raise_error(ArgumentError)
         end
       end # object is not convertible to boolean
     end # .try_convert
