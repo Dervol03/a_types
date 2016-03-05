@@ -13,8 +13,8 @@ module ATypes
     end
 
 
-    # Extracts the truth from this BooleanWrap's value according to the following
-    # rules:
+    # Extracts the truth from this BooleanWrap's value according to the
+    # following rules:
     # - for any kind of numeric: values above *0* are *true*, others false.
     #
     # - for strings: any string equal to either of the following
@@ -59,18 +59,18 @@ module ATypes
     end
 
 
-    # Will operate a logical AND with other, based on this BooleanWrap's #to_bool
-    # interpretation. It will therefore handle Ruby's native booleans and the
-    # BooleanWrap instances in the very same way. Otherwise, the logic abides Ruby's
-    # default truthy interpretation.
+    # Will operate a logical AND with other, based on this BooleanWrap's
+    # #to_bool interpretation. It will therefore handle Ruby's native booleans
+    # and the BooleanWrap instances in the very same way. Otherwise, the logic
+    # abides Ruby's default truthy interpretation.
     #
     # @example
     #   BooleanWrap.new(true) & BooleanWrap.new(true) # => true
     #   BooleanWrap.new('y')  & "hello"           # => true
     #   BooleanWrap.new('y')  & nil               # => false
     #
-    # @param [BooleanWrap, true, false, Object] other to logically combine with this
-    #                                       BooleanWrap.
+    # @param [BooleanWrap, true, false, Object] other to logically combine with
+    #   this BooleanWrap.
     # @return [true, false] result of logical AND.
     def &(other)
       other_value = other.respond_to?(:truthy?) ? other.truthy? : other
@@ -80,8 +80,8 @@ module ATypes
 
     # Will operate a logical OR with other, based on this BooleanWrap's #to_bool
     # interpretation. It will therefore handle Ruby's native booleans and the
-    # BooleanWrap instances in the very same way. Otherwise, the logic abides Ruby's
-    # default truthy interpretation.
+    # BooleanWrap instances in the very same way. Otherwise, the logic abides
+    # Ruby's default truthy interpretation.
     #
     # @example
     #   BooleanWrap.new(true)   | BooleanWrap.new(true) # => true
@@ -89,8 +89,8 @@ module ATypes
     #   BooleanWrap.new('y')    | nil               # => true
     #   BooleanWrap.new(false)  | nil              # => false
     #
-    # @param [BooleanWrap, true, false, Object] other to logically combine with this
-    #                                       BooleanWrap.
+    # @param [BooleanWrap, true, false, Object] other to logically combine with
+    #   this BooleanWrap.
     # @return [true, false] result of logical OR.
     def |(other)
       other_value = other.respond_to?(:truthy?) ? other.truthy? : other
@@ -98,10 +98,10 @@ module ATypes
     end
 
 
-    # Will operate a logical XOR with other, based on this BooleanWrap's #to_bool
-    # interpretation. It will therefore handle Ruby's native booleans and the
-    # BooleanWrap instances in the very same way. Otherwise, the logic abides Ruby's
-    # default truthy interpretation.
+    # Will operate a logical XOR with other, based on this BooleanWrap's
+    # #to_bool interpretation. It will therefore handle Ruby's native booleans
+    # and the BooleanWrap instances in the very same way. Otherwise, the logic
+    # abides Ruby'sdefault truthy interpretation.
     #
     # @example
     #   BooleanWrap.new(true)   ^ BooleanWrap.new(true) # => false
@@ -109,8 +109,8 @@ module ATypes
     #   BooleanWrap.new('y')    ^ nil               # => true
     #   BooleanWrap.new(false)  ^ nil              # => false
     #
-    # @param [BooleanWrap, true, false, Object] other to logically combine with this
-    #                                       BooleanWrap.
+    # @param [BooleanWrap, true, false, Object] other to logically combine with
+    #   this BooleanWrap.
     # @return [true, false] result of logical OR.
     def ^(other)
       other_value = other.respond_to?(:truthy?) ? other.truthy? : other
@@ -122,7 +122,7 @@ module ATypes
     #   BooleanWrap.new('y').to_s   # => "true"
     #
     # @return [String] string representation of this BooleanWrap's #to_bool
-    #                  interpretation.
+    #   interpretation.
     def to_s
       to_bool.to_s
     end

@@ -6,7 +6,7 @@ context 'Numeric' do
       context 'containing fixnum' do
         it 'converts to Fixnum' do
           expect('12'.to_num).to eq 12
-          expect('-1'.to_num).to eq -1
+          expect('-1'.to_num).to eq(-1)
         end
       end # on containing fixnum
 
@@ -14,7 +14,7 @@ context 'Numeric' do
       context 'containing dot separated float' do
         it 'converts string to float' do
           expect('12.5'.to_num).to eq 12.5
-          expect('-5.75'.to_num).to eq -5.75
+          expect('-5.75'.to_num).to eq(-5.75)
         end
       end # containing float
 
@@ -22,7 +22,7 @@ context 'Numeric' do
       context 'containing comma separated float' do
         it 'converts string to float' do
           expect('12,5'.to_num).to eq 12.5
-          expect('-5,75'.to_num).to eq -5.75
+          expect('-5,75'.to_num).to eq(-5.75)
         end
       end # containing comma separated float
 
@@ -40,7 +40,7 @@ context 'Numeric' do
     context 'Fixnum' do
       it 'returns same Fixnum' do
         expect(12.to_num).to eq 12
-        expect(-2.to_num).to eq -2
+        expect(-2.to_num).to eq(-2)
       end
     end # Fixnum
 
@@ -48,7 +48,7 @@ context 'Numeric' do
     context 'Float' do
       it 'returns same float' do
         expect(12.3.to_num).to eq 12.3
-        expect(-2.5.to_num).to eq -2.5
+        expect(-2.5.to_num).to eq(-2.5)
       end
     end # Float
 
@@ -62,7 +62,7 @@ context 'Numeric' do
 
     context 'FalseClass' do
       it 'returns -1' do
-        expect(false.to_num).to eq -1
+        expect(false.to_num).to eq(-1)
       end
     end # FalseClass
 

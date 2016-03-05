@@ -29,10 +29,9 @@ class String
   #
   # @return [Numeric, nil] depending on the value of this String.
   def to_num
-    case self
-    when /^-?\d+$/ then
+    if self =~ /^-?\d+$/
       to_i
-    when /^-?\d+[,.]\d+$/ then
+    elsif self =~ /^-?\d+[,.]\d+$/
       sub(',', '.').to_f
     end
   end
