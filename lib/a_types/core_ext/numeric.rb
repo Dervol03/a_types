@@ -62,7 +62,7 @@ class Array
   # fails, nil is returned.
   #
   # @return [Numeric, nil] depending on whether joining returns a valid
-  #                   number String.
+  #   number String.
   #
   # @example
   #   [1,2,3,4].to_num            # => 1234

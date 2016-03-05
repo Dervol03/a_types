@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Yves Komenda']
   spec.email         = ['b_d_v@web.de']
 
-  spec.summary       = "Provides advanced versions of Ruby's basic datatypes"
-  spec.description   = "Provides advanced versions of Ruby's basic datatypes"
+  spec.summary       = "Provides advanced versions of Ruby's basic data types"
+  spec.description   = "Provides advanced versions of Ruby's basic data types"
   spec.homepage      = 'https://github.com/Dervol03/a_types'
   spec.license       = 'MIT'
 

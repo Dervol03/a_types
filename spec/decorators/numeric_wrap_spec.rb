@@ -104,7 +104,7 @@ describe ATypes::NumericWrap do
       it 'returns nil' do
         expect(described_class.try_convert('hello')).to       be nil
         expect(described_class.try_convert([1, 1.3, 1.4])).to be nil
-        expect(described_class.try_convert(a: 1)).to        eq nil
+        expect(described_class.try_convert(a: 1)).to          be nil
       end
     end # object can not be converted to any numeric
   end # .try_convert
