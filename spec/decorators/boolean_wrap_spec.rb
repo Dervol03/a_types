@@ -16,13 +16,7 @@ describe ATypes::BooleanWrap do
   it { is_expected.to respond_to(:inspect)  }
   it { is_expected.to respond_to(:to_s)     }
 
-  it 'it delegates any method of the wrapped object' do
-    obj = Object.new
-    expect(obj).to receive(:native_method)
-
-    wrapped_obj = described_class.new(obj)
-    wrapped_obj.native_method
-  end
+  it_behaves_like 'a delegating wrapper'
 
   describe '#true?' do
     context 'content is true' do

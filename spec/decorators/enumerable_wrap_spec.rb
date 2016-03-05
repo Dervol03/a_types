@@ -2,12 +2,7 @@ require 'decorators_helper'
 
 
 describe ATypes::EnumerableWrap do
-  it 'delegates methods to orginal object' do
-    obj = Object.new
-    expect(obj).to receive(:delegated_method)
-
-    described_class.new(obj).delegated_method
-  end
+  it_behaves_like 'a delegating wrapper'
 
 
   describe '#filled?' do
